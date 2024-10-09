@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  jupyter:
+    build:
+      context: ./jupyter
+      args:
+        DOCKER_UID: ${DOCKER_UID}
+        DOCKER_GID: ${DOCKER_GID}
+        DOCKER_USER: ${DOCKER_USER}
+        DOCKER_PASSWORD: ${DOCKER_PASSWORD}
+    container_name: deform_pred_multi_env_jupyter_${DOCKER_USER}
+    environment:
+      - DISPLAY=${MY_DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES}
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES}
+      - TZ=Asia/Tokyo
+    ports:
+      - "${HOST_JUPYTER_PORT}:${CONTAINER_JUPYTER_PORT}"
+      - "${HOST_TENSORBOARD_PORT}:${CONTAINER_TENSORBOARD_PORT}" # TensorBoard用
+    volumes:
+      - /home/${DOCKER_USER}/workspace/DEFORMATION_PREDICTION:/tf/workspace/DEFORMATION_PREDICTION
+      - /mnt/nas/kodera/deformation_prediction_multi_environment:/tf/nas
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    working_dir: /tf/workspace/DEFORMATION_PREDICTION
+    command: >
+      bash -c "jupyter lab --no-browser --ip=0.0.0.0 --allow-root --port=${CONTAINER_JUPYTER_PORT} --NotebookApp.token='' &
+               tensorboard --logdir /tf/nas/logs --host 0.0.0.0 --port=${CONTAINER_TENSORBOARD_PORT}"

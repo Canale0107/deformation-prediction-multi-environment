@@ -1,0 +1,16 @@
+scikit-learn
+scikit-image
+jupyter
+numpy
+matplotlib
+pandas
+scipy
+tqdm
+opencv-python
+ffmpeg-python
+optuna
+jupyterlab
+seaborn
+pillow
+statsmodels
+rich
