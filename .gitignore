@@ -1,1 +1,5 @@
 nas
+data/raw/
+data/preprocessed
+.ipynb_checkpoints
+logs

@@ -6,7 +6,7 @@ matplotlib
 pandas
 scipy
 tqdm
-opencv-python
+opencv-python-headless
 ffmpeg-python
 optuna
 jupyterlab
