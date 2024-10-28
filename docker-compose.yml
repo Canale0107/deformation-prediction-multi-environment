@@ -3,14 +3,15 @@ services:
     build:
       context: ./jupyter
     container_name: deform_pred_multi_env_jupyter
+    platform: linux/amd64
     environment:
       - TZ=Asia/Tokyo
     ports:
       - 8888:8888
-      - 6006:6666
+      - 6006:8889
     volumes:
       - .:/workspace/deformation-prediction-multi-environment
     working_dir: /workspace/deformation-prediction-multi-environment
     command: >
       bash -c "jupyter lab --no-browser --ip=0.0.0.0 --allow-root --port=8888 --NotebookApp.token='' &
-               tensorboard --logdir /tf/workspace/deformation-prediction-multi-environment/logs --host 0.0.0.0 --port=6006"
+               tensorboard --logdir /workspace/deformation-prediction-multi-environment/logs --host 0.0.0.0 --port=6006"

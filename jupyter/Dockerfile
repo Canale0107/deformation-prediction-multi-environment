@@ -8,13 +8,14 @@ WORKDIR /workspace
 RUN apt-get update && apt-get install -y \
     git \
     wget \
+    cabextract \
+    fontconfig \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # フォントのインストール
 COPY ./install_fonts.sh /usr/local/bin/install_fonts.sh
 RUN chmod +x /usr/local/bin/install_fonts.sh && /usr/local/bin/install_fonts.sh
-RUN apt-get update && apt-get install -y fonts-noto-cjk
 
 ENV PYTHONPATH=/workspace/deformation-prediction-multi-environment
 
@@ -23,6 +24,9 @@ COPY requirements.txt /workspace/requirements.txt
 RUN set -x && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install -r /workspace/requirements.txt
+
+# フォントのインストール確認
+RUN fc-list | grep -E "Arial|Times New Roman"
 
 # ポートを公開
 EXPOSE 6006
