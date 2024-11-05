@@ -25,4 +25,4 @@ services:
     working_dir: /tf/workspace/deformation-prediction-multi-environment
     command: >
       bash -c "jupyter lab --no-browser --ip=0.0.0.0 --allow-root --port=${CONTAINER_JUPYTER_PORT} --NotebookApp.token='' &
-               tensorboard --logdir /tf/nas/logs --host 0.0.0.0 --port=${CONTAINER_TENSORBOARD_PORT}"
+               tensorboard --logdir /tf/workspace/deformation-prediction-multi-environment/logs --host 0.0.0.0 --port=${CONTAINER_TENSORBOARD_PORT}"

@@ -14,6 +14,7 @@ def _rf_signal_embedding(x):
     x = layers.Activation('relu')(x)
     return x
 
+# dropoutの追加、フィルタを減らしてキャパシティを落とす
 
 # Block 1: 4つの経路
 def _block1(x):
