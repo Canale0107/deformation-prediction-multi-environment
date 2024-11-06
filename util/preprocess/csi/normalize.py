@@ -1,6 +1,10 @@
 import numpy as np
 
-__all__ = ['normalize_csi_amplitudes_by_frame_power', 'normalize_csi_data_by_frame_power']
+__all__ = [
+    'normalize_csi_amplitudes_by_frame_power', 
+    'normalize_csi_amplitudes_by_frame_mean',
+    'normalize_csi_data_by_frame_power'
+]
 
 def normalize_csi_amplitudes_by_frame_power(amplitudes):
     num_frames, num_subcarriers = amplitudes.shape
@@ -20,6 +24,12 @@ def normalize_csi_amplitudes_by_frame_power(amplitudes):
         normalized_amplitudes[i, :] = amplitude / mean_power
 
     return normalized_amplitudes
+
+def normalize_csi_amplitudes_by_frame_mean(amplitudes):
+    amp_means = amplitudes.mean(axis=1, keepdims=True)
+    amp_normalized = amplitudes / amp_means
+
+    return amp_normalized
 
 def normalize_csi_data_by_frame_power(data):
     """
